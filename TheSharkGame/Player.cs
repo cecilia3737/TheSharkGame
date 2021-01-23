@@ -17,6 +17,19 @@ namespace TheSharkGame
 
         }
 
+        public void PlayerInfo()
+        {
+            Console.WriteLine("  ");
+            Console.WriteLine("  ----------------------------------");
+            Console.WriteLine($"   Name: " + Name +
+                $"\n   Level: " + Level +
+                $"\n   HP: " + Hp +
+                $"\n   Exp: " + Exp +
+                $"\n   Attackpower: " + AtkDmg);
+            Console.WriteLine("  ----------------------------------");
+            Console.WriteLine("  ");
+        }
+
 
         public string Name { get => name; set => name = value; }
         public int Level { get => level; set => level = value; }
