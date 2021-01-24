@@ -8,10 +8,33 @@ namespace TheSharkGame
     class Game
     {
         Player p1 = new Player();
+        bool win = false;
+        bool run = true;
+
 
         public Game()
         {
             StartGame();
+
+            do
+            {
+                Menu();
+                int choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        //AdventureTime();
+                        break;
+                    case 2:
+                        p1.PlayerInfo();
+                        break;
+                    case 3:
+                        //QuitGame();
+                        run = win;
+                        break;
+                }
+            } while (run);
+
 
         }
 
@@ -36,6 +59,19 @@ namespace TheSharkGame
                 $"\n  You land on this mysterious planet...");
             Enter();
         }
+
+        public void Menu()
+        {
+            Console.WriteLine("  " +
+                $"\n  What do you want to do?" +
+                $"\n  " +
+                $"\n  1. Go on a adventrue" +
+                $"\n  2. See your stats" +
+                $"\n  3. Quit game" +
+                $"\n  ");
+            Console.Write("  ");
+        }
+
 
         public void Enter()
         {
