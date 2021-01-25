@@ -8,6 +8,8 @@ namespace TheSharkGame
     class Game
     {
         Player p1 = new Player();
+
+        Random random = new Random();
         bool win = false;
         bool run = true;
 
@@ -15,7 +17,6 @@ namespace TheSharkGame
         public Game()
         {
             StartGame();
-
             do
             {
                 Menu();
@@ -34,8 +35,6 @@ namespace TheSharkGame
                         break;
                 }
             } while (run);
-
-
         }
 
         //Intro, ask player for name
@@ -77,16 +76,8 @@ namespace TheSharkGame
         //First step in Adventure, 10% nothing happens.
         public void AdEvent()
         {
-            var random = new Random();
-            List<int> re = new List<int>();
-            for (int u = 1; u <= 10; u++)
-            {
-                re.Add(u);
-            }
-
-            int index = random.Next(re.Count);
-
-            if (index <= 1)
+            int index = random.Next(1, 10);
+            if (index == 1)
             {
                 Console.WriteLine("  ----------------------------------" +
                     "\n  " +
@@ -103,7 +94,6 @@ namespace TheSharkGame
                     "\n  ----------------------------------");
                 //Battle();
             }
-
         }
 
         public void QuitGame()
