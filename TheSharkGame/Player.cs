@@ -19,7 +19,6 @@ namespace TheSharkGame
 
         public void PlayerInfo()
         {
-            Console.WriteLine("  ");
             Console.WriteLine("  ----------------------------------");
             Console.WriteLine($"   Name: " + Name +
                 $"\n   Level: " + Level +
@@ -27,7 +26,6 @@ namespace TheSharkGame
                 $"\n   Exp: " + Exp +
                 $"\n   Attackpower: " + AtkDmg);
             Console.WriteLine("  ----------------------------------");
-            Console.WriteLine("  ");
         }
 
 
