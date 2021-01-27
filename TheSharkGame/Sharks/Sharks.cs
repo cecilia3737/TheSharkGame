@@ -22,6 +22,29 @@ namespace TheSharkGame.Monsters
 
         }
 
+        public virtual int GetAttacked(int playerDmg)
+        {
+            return Hp -= playerDmg;
+        }
+
+        public void SharkAttack()
+        {
+            Console.WriteLine("  A wild " + Name + " appears! ");
+        }
+
+        public int SharkRestore()
+        {
+            return Hp += 10;
+        }
+
+        public void LevelUpShark()
+        {
+            Hp += 10;
+            GiveExp += 5;
+            FirstDmg++;
+            SecondDmg++;
+            ThirdDmg++;
+        }
 
 
 

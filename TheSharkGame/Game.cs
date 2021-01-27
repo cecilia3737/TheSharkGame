@@ -8,15 +8,22 @@ namespace TheSharkGame
     class Game
     {
         Player p1 = new Player();
+        GigantHammerheadShark hammerhead = new GigantHammerheadShark();
+        IKEAShark ikea = new IKEAShark();
+        LaserShark laze = new LaserShark();
+        MagicalWhaleShark magicShark = new MagicalWhaleShark();
+        MiniShark mini = new MiniShark();
+        List<Sharks> sharkList = new List<Sharks>(); 
 
         Random random = new Random();
-        bool win = false;
+        bool win, lose = false;
         bool run = true;
-
+        int levelUp = 20;
 
         public Game()
         {
             StartGame();
+            AddSharks();
             do
             {
                 Menu();
@@ -24,8 +31,7 @@ namespace TheSharkGame
                 switch (choice)
                 {
                     case 1:
-                        AdEvent();
-                        //AdventureTime();
+                        AdventureTime();
                         break;
                     case 2:
                         p1.PlayerInfo();
@@ -33,6 +39,15 @@ namespace TheSharkGame
                     case 3:
                         QuitGame();
                         break;
+                    case 9: //Level-up cheat
+                        p1.Exp += 70;
+                        p1.LevelUp();
+                        break;
+                }
+                if (p1.Level == 10)
+                {
+                    Console.WriteLine("Wow! You won against the sharks! Now they respect and love you so you are welcome to stay at their homeplanet anytime!");
+                    run = win;
                 }
             } while (run);
         }
@@ -73,10 +88,20 @@ namespace TheSharkGame
             Console.Write("  ");
         }
 
-        //First step in Adventure, 10% nothing happens.
-        public void AdEvent()
+        public void AdventureTime()
         {
+            int sharkIndex = random.Next(sharkList.Count);
             int index = random.Next(1, 10);
+            List<string> sharkAttacks = new List<string>();
+            sharkAttacks.Add(sharkList[sharkIndex].FirstAtk);
+            sharkAttacks.Add(sharkList[sharkIndex].SecondAtk);
+            sharkAttacks.Add(sharkList[sharkIndex].ThirdAtk);
+
+            List<int> attackDmg = new List<int>();
+            attackDmg.Add(sharkList[sharkIndex].FirstDmg);
+            attackDmg.Add(sharkList[sharkIndex].SecondDmg);
+            attackDmg.Add(sharkList[sharkIndex].ThirdDmg);
+
             if (index == 1)
             {
                 Console.WriteLine("  ----------------------------------" +
@@ -85,15 +110,148 @@ namespace TheSharkGame
                     "\n  " +
                     "\n  ----------------------------------");
             }
-            else if (index >= 1)
+            else if (index > 1)
             {
-                Console.WriteLine("  ----------------------------------" +
-                    "\n  " +
-                    "\n  You go on a adventrue and a Shark appears!!" +
-                    "\n  " +
-                    "\n  ----------------------------------");
-                //Battle();
+                    Console.WriteLine("  ----------------------------------" +
+                    "\n  ");
+                    Battle(sharkIndex);
+
+                int sharkAtkIndex = random.Next(sharkAttacks.Count);
+
+                Console.WriteLine("  ");
+                PGetAttacked(sharkAttacks[sharkAtkIndex], attackDmg[sharkAtkIndex]);
+                Console.WriteLine("  " +
+                "\n  Your hp are now: " + p1.Hp +
+                "\n  " + sharkList[sharkIndex].Name + "hp are: " + sharkList[sharkIndex].Hp);
+                Console.WriteLine("  ");
+                bool battleOngoing = true;
+                while (battleOngoing)
+                {
+                    
+                    PlayerAtkChoice();
+                    Console.Write("  ");
+                    int atkChoice = Convert.ToInt32(Console.ReadLine());
+                    if (atkChoice == 1)
+                    {
+                        p1.AttackShark(sharkList[sharkIndex].Name);
+                        sharkList[sharkIndex].GetAttacked(p1.AtkDmg);
+
+                        if (sharkList[sharkIndex].Hp <= 0)
+                        {
+                            Console.WriteLine("  The " + sharkList[sharkIndex].Name + " gets scared and swims away.");
+                            p1.WinExp(sharkList[sharkIndex].GiveExp);
+                            battleOngoing = win;
+                        }
+                        else if (p1.Hp <= 0)
+                        {
+                            Console.WriteLine("  Oh no! You lost against the mighty sharks! Start over, bye bye");
+                            run = lose;
+                        }
+                        else
+                        {
+                            int sharkAtkIndexTwo = random.Next(sharkAttacks.Count);
+                            Console.WriteLine("  ");
+                            PGetAttacked(sharkAttacks[sharkAtkIndexTwo], attackDmg[sharkAtkIndexTwo]);
+                            Console.WriteLine("  " +
+                            "\n  Your hp are now: " + p1.Hp +
+                            "\n  " + sharkList[sharkIndex].Name + " hp are: " + sharkList[sharkIndex].Hp);
+                            Console.WriteLine("  ");
+                        }
+                    }
+                    else if (atkChoice == 2)
+                    {
+                        int smwRandom = random.Next(1, 2);
+
+                        if (smwRandom == 1)
+                        {
+                            Console.WriteLine(" " +
+                                "\n  The " + sharkList[sharkIndex].Name + " smile and wave back" +
+                                "\n  It likes you and give you " + sharkList[sharkIndex].GiveExp + " exp and swim away!");
+                            p1.WinExp(sharkList[sharkIndex].GiveExp);
+                            battleOngoing = win;
+                        }
+                        else
+                        {
+                            Console.WriteLine("  The shark don't see your gesture");
+                            continue; 
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("  ----------------------------------" +
+                            "\n  " +
+                            "\n  Please enter your answer");
+                    }
+
+                }
+
+                if (p1.Exp < levelUp)
+                {
+                    Console.WriteLine(" " +
+                        "\n  ----------------------------------" +
+                        "\n  " +
+                        "\n  You won against the shark! You gain " + sharkList[sharkIndex].GiveExp + " exp!" +
+                        "\n  " +
+                        "\n  ----------------------------------");
+                    sharkList[sharkIndex].SharkRestore();
+                    
+                }
+
+                else if (p1.Exp >= levelUp)
+                {
+                    Console.WriteLine(" " +
+                        "\n  ----------------------------------" +
+                        "\n  " +
+                        "\n  You won against the shark! You gain " + sharkList[sharkIndex].GiveExp + " exp!" +
+                        "\n  " +
+                        "\n  ----------------------------------");
+                    p1.LevelUp();
+                    levelUp += 20;
+                    foreach (var shark in sharkList)
+                    {
+                        shark.LevelUpShark();
+                    }
+                }
+
+
+
             }
+        }
+
+        public void Battle(int sharkListI)
+        {
+            sharkList[sharkListI].SharkAttack();
+            
+        }
+
+        public void PGetAttacked(string sharkAttack, int attackdmg)
+        {
+            Console.WriteLine("  " + sharkAttack + " You lose " + attackdmg + " hp.");
+            p1.GetAttacked(attackdmg);
+        }
+
+        public void AddSharks()
+        {
+            sharkList.Add(hammerhead);
+            sharkList.Add(ikea);
+            sharkList.Add(laze);
+            sharkList.Add(magicShark);
+            sharkList.Add(mini);
+        }
+
+        public void PlayerAtkChoice()
+        {
+            Console.WriteLine(" " +
+                "\n  What do you wanna do?" +
+                "\n  1. Attack shark (" + p1.AtkDmg + " in damage)" +
+                "\n  2. Smile and wave (0 in damage)" +
+                "\n " );
+        }
+
+        public void SmileAndWave(string sharkname)
+        {
+            Console.WriteLine("  You smile and wave at the " + sharkname);
         }
 
         public void QuitGame()
