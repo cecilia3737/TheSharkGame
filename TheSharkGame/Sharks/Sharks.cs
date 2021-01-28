@@ -27,14 +27,26 @@ namespace TheSharkGame.Monsters
             return Hp -= playerDmg;
         }
 
-        public void SharkAttack()
+        public void SharkAppears()
         {
-            Console.WriteLine("  A wild " + Name + " appears! ");
+            Console.WriteLine("  A " + Name + " appears! ");
         }
 
         public int SharkRestore()
         {
             return Hp += 10;
+        }
+
+        public void ShowHp()
+        {
+            Console.WriteLine("  " + Name + " hp: " + Hp);
+        }
+
+        public void SmileAndWave()
+        {
+            Console.WriteLine(" " +
+            "\n  The " + Name + " smile and wave back" +
+            "\n  You're a good mannered chap! It wishes you a good day and swims away!");
         }
 
         public void LevelUpShark()
@@ -43,7 +55,6 @@ namespace TheSharkGame.Monsters
             GiveExp += 5;
             FirstDmg++;
             SecondDmg++;
-            ThirdDmg++;
         }
 
 

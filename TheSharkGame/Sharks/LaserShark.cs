@@ -9,14 +9,16 @@ namespace TheSharkGame.Monsters
         public LaserShark()
         {
             base.Name = "Laser Shark";
-            base.Hp = 10;
-            base.FirstAtk = "This is the first attack, The Mini Shark does something to the player.";
-            base.FirstDmg = 2;
-            base.SecondAtk = "This is the second attack, The Mini Shark does something to the player.";
+            base.Hp = 12;
+            base.FirstAtk = "The Laser Shark yells 'Imaffahringmalasah' and his eyes shoot hot laser beams towards you. " +
+                "\n  It is a direct hit!";
+            base.FirstDmg = 3;
+            base.SecondAtk = "The Laser Shark starts a laser rave! You get stomped to the beat of the music.";
             base.SecondDmg = 2;
-            base.ThirdAtk = "This is the third attack, The Mini Shark does something to the player.";
+            base.ThirdAtk = "The Laser Shark fires his pew pew canon, you feel the heat of the laser passing right next to your ear. " +
+                "\n  Pew pew phew.";
             base.ThirdDmg = 0;
-            base.GiveExp = 5;
+            base.GiveExp = 7;
         }
     }
 }

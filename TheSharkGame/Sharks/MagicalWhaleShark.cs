@@ -9,12 +9,15 @@ namespace TheSharkGame.Monsters
         public MagicalWhaleShark()
         {
             base.Name = "Magical Whale Shark";
-            base.Hp = 10;
-            base.FirstAtk = "This is the first attack, The Magical Whale Shark does something to the player.";
-            base.FirstDmg = 2;
-            base.SecondAtk = "This is the second attack, The Magical Whale Shark does something to the player.";
+            base.Hp = 8;
+            base.FirstAtk = "You say it is quite late in the game for a Magical Whale Shark to appear. " +
+                "\n  You fool. The Magical Whale Shark is never late. Nor is he early. " +
+                "\n  You are wrong. Dead wrong. Simple as that.";
+            base.FirstDmg = 1;
+            base.SecondAtk = "The Magical Whale Shark pulls a rabbit out of his hat. " +
+                "\n  Wow, how did he do that? While you are not looking, he steals your watch.";
             base.SecondDmg = 2;
-            base.ThirdAtk = "This is the third attack, The Magical Whale Shark does something to the player.";
+            base.ThirdAtk = "The Magical Whale Shark tries a waterfall attack. Hey, we're below the surface. It has no effect.";
             base.ThirdDmg = 0;
             base.GiveExp = 5;
         }

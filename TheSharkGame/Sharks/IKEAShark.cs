@@ -10,13 +10,13 @@ namespace TheSharkGame.Monsters
         {
             base.Name = "IKEA Shark";
             base.Hp = 10;
-            base.FirstAtk = "This is the first attack, The Ikea shark does something to the player.";
-            base.FirstDmg = 2;
-            base.SecondAtk = "This is the second attack, The Ikea shark does something to the player.";
-            base.SecondDmg = 2;
-            base.ThirdAtk = "This is the third attack, The Ikea shark does something to the player.";
+            base.FirstAtk = "The IKEA Shark begins a dance battle, you make some moves to but trip and fall...";
+            base.FirstDmg = 1;
+            base.SecondAtk = "The IKEA Shark mocks you. Does it hurt?";
+            base.SecondDmg = 1;
+            base.ThirdAtk = "The IKEA Shark bestows a dance lesson upon you. He encourages you to keep practicing your moves.";
             base.ThirdDmg = 0;
-            base.GiveExp = 5;
+            base.GiveExp = 3;
         }
     }
 }

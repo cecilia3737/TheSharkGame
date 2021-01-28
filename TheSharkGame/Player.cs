@@ -32,7 +32,20 @@ namespace TheSharkGame
 
         public void AttackShark(string sharkName)
         {
-            Console.WriteLine("  You attack the " + sharkName + " with your weapon! It gets a hit and loses " + AtkDmg + "hp.");
+            Console.WriteLine("  " +
+                "\n  You attack the " + sharkName + " with your fancy towel! It gets a hit and loses " + AtkDmg + "hp.");
+        }
+
+        public void SmileAndWave(string sharkname)
+        {
+            Console.WriteLine("  ----------------------------------" +
+                "\n  " +
+                "\n  You smile and wave at the " + sharkname);
+        }
+
+        public void ShowHp()
+        {
+            Console.WriteLine("  Your hp: " + Hp);
         }
 
         public virtual int GetAttacked(int sharkDmg)
@@ -45,6 +58,14 @@ namespace TheSharkGame
             return Exp += sharkExp;
         }
 
+        public void WinBattle(int sharkExp)
+        {
+            Console.WriteLine(" " +
+                        "\n  You won against the shark! You gain " + sharkExp + " exp!" +
+                        "\n  " +
+                        "\n  ----------------------------------");
+        }
+
         public void LevelUp()
         {
             Level++;
@@ -53,12 +74,21 @@ namespace TheSharkGame
             Console.WriteLine("  " +
                 "\n  *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*" +
                 "\n  *                                                                 *" +
-                "\n  *  You Leveled up! You are now at Level " + Level + " Your hp got restored!  *" +
+                "\n  *  You Leveled up! You are now at Level " + Level + " You get some extra hp!  *" +
                 "\n  *                                                                 *" +
                 "\n  *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
             PlayerInfo();
         }
 
+        public void Lose()
+        {
+            Console.WriteLine("  " +
+                "\n  ----------------------------------" +
+                "\n  " +
+                "\n  Oh no! You lost against the mighty sharks! Don't be ashamed, this is a really hard game!" +
+                "\n  Did that encourage you to play again?" +
+                "\n  ");
+        }
 
         public string Name { get => name; set => name = value; }
         public int Level { get => level; set => level = value; }

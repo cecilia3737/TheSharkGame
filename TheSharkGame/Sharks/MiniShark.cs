@@ -9,12 +9,13 @@ namespace TheSharkGame.Monsters
         public MiniShark()
         {
             base.Name = "Mini Shark";
-            base.Hp = 10;
-            base.FirstAtk = "This is the first attack, The Mini Shark does something to the player.";
+            base.Hp = 7;
+            base.FirstAtk = "Baby Shark do-do-do-do-do-doh. Oh my, now it's going to be stuck in your head all day.";
             base.FirstDmg = 2;
-            base.SecondAtk = "This is the second attack, The Mini Shark does something to the player.";
-            base.SecondDmg = 2;
-            base.ThirdAtk = "This is the third attack, The Mini Shark does something to the player.";
+            base.SecondAtk = "The Mini Shark takes a bite off you. Wow, could those little fangs really hurt so much?";
+            base.SecondDmg = 3;
+            base.ThirdAtk = "The Mini Shark attacks you with his big, cute eyes. He is so adorable! " +
+                "\n  Nothing happens, except for your icy heart melting.";
             base.ThirdDmg = 0;
             base.GiveExp = 5;
         }

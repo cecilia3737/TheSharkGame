@@ -9,14 +9,17 @@ namespace TheSharkGame.Monsters
         public GigantHammerheadShark()
         {
             base.Name = "Gigant Hammerhead Shark";
-            base.Hp = 10;
-            base.FirstAtk = "This is the first attack, The Gigant Hammerhead Shark does something to the player.";
-            base.FirstDmg = 2;
-            base.SecondAtk = "This is the second attack, The Gigant Hammerhead Shark does something to the player.";
-            base.SecondDmg = 2;
-            base.ThirdAtk = "This is the third attack, The Gigant Hammerhead Shark does something to the player.";
+            base.Hp = 13;
+            base.FirstAtk = "The Giant Hammerhead Shark challanges you in a bench press battle. " +
+                "\n  You stand no chance against his awesome pecs.";
+            base.FirstDmg = 5;
+            base.SecondAtk = "The Giant Hammerhead Shark served in Namm. Where were you? " +
+                "\n  You were probably not even born yet, you millenial.";
+            base.SecondDmg = 7;
+            base.ThirdAtk = "The Giant Hammerhead Shark needs to get a protein bar. " +
+                "\n  He will be right back to kick your butt after he has secured his rightful gains.";
             base.ThirdDmg = 0;
-            base.GiveExp = 5;
+            base.GiveExp = 10;
         }
     }
 }
