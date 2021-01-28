@@ -8,7 +8,7 @@ namespace TheSharkGame
     {
         private string name;
         private int level = 1;
-        private int hp = 50;
+        private int hp = 30;
         private int exp;
         private int atkDmg = 4;
 
@@ -60,7 +60,8 @@ namespace TheSharkGame
 
         public void WinBattle(int sharkExp)
         {
-            Console.WriteLine(" " +
+            Console.WriteLine("  ----------------------------------" +
+                        "\n   " +
                         "\n  You won against the shark! You gain " + sharkExp + " exp!" +
                         "\n  " +
                         "\n  ----------------------------------");
@@ -69,8 +70,8 @@ namespace TheSharkGame
         public void LevelUp()
         {
             Level++;
-            AtkDmg += 2;
-            Hp += 20;
+            AtkDmg *= 2;
+            Hp *= 4;
             Console.WriteLine("  " +
                 "\n  *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*" +
                 "\n  *                                                                 *" +

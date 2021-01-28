@@ -32,11 +32,6 @@ namespace TheSharkGame.Monsters
             Console.WriteLine("  A " + Name + " appears! ");
         }
 
-        public int SharkRestore()
-        {
-            return Hp += 10;
-        }
-
         public void ShowHp()
         {
             Console.WriteLine("  " + Name + " hp: " + Hp);
@@ -45,16 +40,16 @@ namespace TheSharkGame.Monsters
         public void SmileAndWave()
         {
             Console.WriteLine(" " +
-            "\n  The " + Name + " smile and wave back" +
+            "\n  The " + Name + " smiles and waves back" +
             "\n  You're a good mannered chap! It wishes you a good day and swims away!");
         }
 
         public void LevelUpShark()
         {
-            Hp += 10;
-            GiveExp += 5;
-            FirstDmg++;
-            SecondDmg++;
+            Hp *= 3;
+            GiveExp *= 2;
+            FirstDmg *= 2;
+            SecondDmg *= 2;
         }
 
 

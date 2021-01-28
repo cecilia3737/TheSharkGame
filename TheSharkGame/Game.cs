@@ -23,12 +23,14 @@ namespace TheSharkGame
         bool win, lose = false;
         bool run = true;
         int levelUp = 20;
+        int totalDmg;
 
         public Game()
         {
             StartGame();
             AddSharks();
-            do
+
+            while (run)
             {
                 Menu();
                 int choice = Convert.ToInt32(Console.ReadLine());
@@ -39,13 +41,13 @@ namespace TheSharkGame
                         break;
                     case 2:
                         p1.PlayerInfo();
+                        Console.WriteLine("  Exp to next Level: " + levelUp);
                         break;
                     case 3:
                         QuitGame();
                         break;
                     case 9: //Level-up cheat
-                        p1.Exp += 70;
-                        p1.LevelUp();
+                        Cheat();
                         break;
                 }
                 if (p1.Hp <= 0)
@@ -58,7 +60,7 @@ namespace TheSharkGame
                     WinGame();
                     run = win;
                 }
-            } while (run);
+            }
         }
 
         //Intro, ask player for name
@@ -82,8 +84,9 @@ namespace TheSharkGame
                 "\n  You have been looking for a planet to land your spaceship on. " +
                 "\n  Finally you find the perfect blue planet! " +
                 "\n  You land on this mysterious planet...good thing you brought a towel to a planet with this much water!" +
-                "\n  I wonder what will happen?");
+                "\n  You exit your space ship...I wonder what will happen?");
             Enter();
+            Console.WriteLine("  ----------------------------------");
         }
 
         //Show menu-options
@@ -92,7 +95,7 @@ namespace TheSharkGame
             Console.WriteLine("  " +
                 "\n  What do you want to do?" +
                 "\n  " +
-                "\n  1. You exit your space ship and dive into the great unknown" +
+                "\n  1. Dive into the great unknown" +
                 "\n  2. See your stats" +
                 "\n  3. Quit game" +
                 "\n  ");
@@ -111,20 +114,21 @@ namespace TheSharkGame
             {
                 Console.WriteLine("  ----------------------------------" +
                     "\n  " +
-                    "\n  You go on a adventure but nothing happens..." +
+                    "\n  You go for a swim and nothing happens..." +
                     "\n  " +
                     "\n  ----------------------------------");
             }
             else if (index > 1)
             {
-                    Console.WriteLine("  ----------------------------------" +
+                Console.WriteLine("  ----------------------------------" +
                     "\n  ");
-                
+
                 sharkList[sharkIndex].SharkAppears();
 
                 int sharkAtkIndex = random.Next(sharkAttacks.Count);
                 PGetAttacked(sharkAttacks[sharkAtkIndex], attackDmg[sharkAtkIndex]);
                 BattleShowHp(sharkIndex);
+                Enter();
                 if (p1.Hp <= 0)
                 {
                     battleOngoing = false;
@@ -143,22 +147,31 @@ namespace TheSharkGame
                                 Console.WriteLine("  ----------------------------------");
                                 p1.AttackShark(sharkList[sharkIndex].Name);
                                 sharkList[sharkIndex].GetAttacked(p1.AtkDmg);
+                                totalDmg += p1.AtkDmg;
+                            
+                            if (sharkList[sharkIndex].Hp <= 0)
+                            {
+                                Enter();
+                            }
+                            else 
+                            { 
                             BattleShowHp(sharkIndex);
                             Enter();
-
+                            }
 
                             if (sharkList[sharkIndex].Hp <= 0)
                             {
-                                Console.WriteLine("  The " + sharkList[sharkIndex].Name + " gets scared and swims away.");
+                                Console.WriteLine("" +
+                                    "\n  The " + sharkList[sharkIndex].Name + " gets scared and swims away.");
                                 p1.WinExp(sharkList[sharkIndex].GiveExp);
                                 battleOngoing = win;
                             }
 
                             else
                             {
-                                    int sharkAtkIndexTwo = random.Next(sharkAttacks.Count);
-                                    PGetAttacked(sharkAttacks[sharkAtkIndexTwo], attackDmg[sharkAtkIndexTwo]);
-                                
+                                Console.WriteLine("  ----------------------------------");
+                                int sharkAtkIndexTwo = random.Next(sharkAttacks.Count);
+                                PGetAttacked(sharkAttacks[sharkAtkIndexTwo], attackDmg[sharkAtkIndexTwo]);
                             }
 
                                 if (p1.Hp <= 0)
@@ -166,29 +179,32 @@ namespace TheSharkGame
                                     p1.Lose();
                                     break;
                                 }
+                                
                                 else
                                 {
                                     BattleShowHp(sharkIndex);
+                                    Enter();
                                 }
 
                         }
                         else if (atkChoice == 2)
                         {
-                            int smwRandom = random.Next(1, 2);
+                            int smwRandom = random.Next(1, 10);
+
                             p1.SmileAndWave(sharkList[sharkIndex].Name);
                             Enter();
 
-                            if (smwRandom == 1)
+                                     if (smwRandom > 2)
                                      {   
                                             sharkList[sharkIndex].SmileAndWave();
                                             p1.WinExp(sharkList[sharkIndex].GiveExp);
                                             battleOngoing = win;
                                      }
-                                     else
+                                     else if (smwRandom <= 2)
                                      {
-                                Console.WriteLine("  " +
-                                    "\n  The shark don't see your gesture");
-                                        continue; 
+                                            Console.WriteLine("  " +
+                                            "\n  The shark don't see your gesture");
+                                            Enter();
                                      }
 
                         }
@@ -196,13 +212,13 @@ namespace TheSharkGame
                         {
                             Console.WriteLine("  ----------------------------------" +
                                 "\n  " +
-                                "\n  Oh, that is not a number to chose from...please enter 1,2,3 or why not 9?");
+                                "\n  Oh, that is not a number to chose from...please enter 1,2,3 or why not 9?" +
+                                "\n  ");
                         }
 
                     }
                 
                 }
-                Enter();
                 if (p1.Hp <= 0)
                 {
                     run = lose;
@@ -214,22 +230,27 @@ namespace TheSharkGame
                         if (p1.Exp < levelUp)
                         {
                             p1.WinBattle(sharkList[sharkIndex].GiveExp);
-                            sharkList[sharkIndex].SharkRestore();
-                        }
+                            sharkList[sharkIndex].Hp += totalDmg;
+                            totalDmg = 0;
+                    }
 
                         else if (p1.Exp >= levelUp)
                         {
                             p1.WinBattle(sharkList[sharkIndex].GiveExp);
                             p1.LevelUp();
-                            levelUp += 20;
-                            sharkList[sharkIndex].SharkRestore();
+                            levelUp *= 3;
+                            sharkList[sharkIndex].Hp += totalDmg;
+                            totalDmg = 0;
+
                             foreach (var shark in sharkList)
-                            {
-                                shark.LevelUpShark();
-                            }
+                                {
+                                    shark.LevelUpShark();
+                                }
                         }
+                    
                 }
             }
+            
             sharkAttacks.Clear();
             attackDmg.Clear();
         }
@@ -336,12 +357,12 @@ namespace TheSharkGame
         //End text if player win.
         public void WinGame()
         {
-            Console.WriteLine("Wow! You won against the sharks! Now they respect and love you. " +
+            Console.WriteLine("  Wow! You won against the sharks! Now they respect and love you. " +
                         "\n  You are welcome to stay on their home planet anytime!" +
                         "\n  They gift you with a magical trident. You are basically Aquaman now. You are cool." +
-                        "" +
-                        "" +
-                        "  Thank you for playing with the sharks!" +
+                        "\n " +
+                        "\n " +
+                        "\n  Thank you for playing with the sharks!" +
                         "");
         }
 
@@ -350,8 +371,17 @@ namespace TheSharkGame
             Console.WriteLine("  ");
             Console.Write("  - Press Enter to continue -");
             Console.ReadLine();
-            Console.WriteLine("  " +
-                "\n  ----------------------------------");
+        }
+
+        public void Cheat()
+        {
+            p1.Exp = levelUp;
+            p1.LevelUp();
+            levelUp *= 3;
+            foreach (var shark in sharkList)
+            {
+                shark.LevelUpShark();
+            }
         }
 
 
